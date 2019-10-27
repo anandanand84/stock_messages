@@ -1,0 +1,97 @@
+package StockMessages;
+
+enum Side {
+  buy = 1;
+  sell = 2;
+}
+
+enum Type {
+  level = 1;
+  trade =2;
+  snapshot=3;
+}
+
+message LevelUpdate {
+  required Type type = 1;
+  required string exchange = 2;
+  required double price = 3;
+  required string productId = 4;
+  required int32 sequence = 5;
+  required Side side = 6;
+  required double size = 7;
+  required uint64 time = 8;
+  required int32 count = 9;
+}
+
+message TradeMessage {
+  required Type type = 1;
+  required string exchange = 2;
+  required double price = 3;
+  required string productId = 4;
+  required int32 sourceSequence = 5;
+  required Side side = 6;
+  required double size = 7;
+  required uint64 time = 8;
+  required int32 tradeId = 9;
+  optional float daysPercentChange = 10;
+  optional double daysVolume = 11;
+  optional double bid = 12;
+  optional double ask = 13;
+  optional double bidValue = 14;
+  optional double askValue = 15;
+}
+
+message BookInfo {
+  required double askTotalSize = 1;
+  required double askTotalValue = 2;
+  required double bidTotalSize = 3;
+  required double bidTotaValue = 4;
+  required uint32 sequence = 5;
+}
+
+message PriceLevel {
+  required double price = 1;
+  required double totalSize = 2;
+  required double totalValue = 3;
+}
+
+message Trades {
+  required double price = 1;
+  required double size = 2;
+  required Side side = 3;
+}
+
+message Taker {
+  required double value = 1;
+  required double size = 2;
+  required uint32 count = 3;
+}
+
+message TakerInfo {
+  required uint64 time = 1;
+  required Taker sell = 2;
+  required Taker buy = 3;
+}
+
+message SnapshotMessage {
+  required Type type = 1;
+  required int32 exchange = 2;
+  required int32 sourceSequence =3;
+  required string productId = 4;
+  repeated PriceLevel asks = 5;
+  repeated PriceLevel bids = 6;
+  required BookInfo info = 7;
+  required uint64 time = 8;
+  repeated Trades trades = 9;
+  repeated TakerInfo takers = 10;
+}
+
+message CandlesMessage {
+  required string scrip=1;
+  repeated double open=2;
+  repeated double high=3;
+  repeated double low=4;
+  repeated double close=5;
+  repeated double volume=6;
+  repeated uint64 timestamp=7;
+}
